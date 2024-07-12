@@ -1,4 +1,4 @@
-# Molecule scenarios
+# Ansible Molecule scenarios
 
 This repository contains a set of [Molecule][01] scenarios that can be used to test [Ansible][02] roles during their development lifecycle.
 
