@@ -1,0 +1,47 @@
+---
+role_name_check: 1
+
+dependency:
+  name: galaxy
+  options:
+    ignore-errors: true
+
+provisioner:
+  name: ansible
+
+driver:
+  name: vagrant
+  provider:
+    name: virtualbox
+
+platforms:
+  - name: debian-12
+    box: debian/bookworm64
+    cpus: 2
+    memory: 2048
+
+  - name: debian-11
+    box: debian/bullseye64
+    cpus: 2
+    memory: 2048
+
+  - name: rockylinux-9
+    box: rockylinux/9
+    cpus: 2
+    memory: 2048
+
+  - name: rockylinux-8
+    box: rockylinux/8
+    box_version: 5.0.0
+    cpus: 2
+    memory: 2048
+
+  # - name: ubuntu-2404
+  #   box: ubuntu/noble64
+  #   cpus: 2
+  #   memory: 2048
+
+  - name: ubuntu-2204
+    box: ubuntu/jammy64
+    cpus: 2
+    memory: 2048
