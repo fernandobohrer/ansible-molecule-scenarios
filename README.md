@@ -8,7 +8,9 @@ The use of [Molecule][01] scenarios allows for Ansible roles to be tested on mul
 
 ## 🧰 Dependencies
 
-For details about the dependencies for the different scenarios, please check the relevant information in the `README.md` file within each scenario folder.
+These [Molecule][01] scenarios were tested and are confirmed to work properly when using the dependencies that are listed [here][03].
+
+For details about any specific dependencies for the different scenarios, please check the relevant information in the `README.md` file within each scenario folder.
 
 ## ⚡ Quick start
 
@@ -37,3 +39,4 @@ For details about how to get started with the different scenarios, please check 
 
 [01]: https://ansible.readthedocs.io/projects/molecule/
 [02]: https://www.ansible.com/
+[03]: https://github.com/fernandobohrer/ansible-venv
