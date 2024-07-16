@@ -37,6 +37,11 @@ The following Molecule scenarios are available:
 
 For details about how to get started with the different scenarios, please check the relevant information in the `README.md` file within each scenario folder.
 
+## 📝 License
+
+This project is licensed under the terms of the [MIT license][04].
+
 [01]: https://ansible.readthedocs.io/projects/molecule/
 [02]: https://www.ansible.com/
 [03]: https://github.com/fernandobohrer/ansible-venv
+[04]: /LICENSE
