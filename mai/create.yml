@@ -7,18 +7,18 @@
   vars:
     molecule_scenario: mai # Multiple AWS Instances
 
-    molecule_ssh_key_pair_name: molecule-{{ molecule_scenario }}-ssh-key
-    molecule_security_group_name: molecule-{{ molecule_scenario }}-security-group
+    caller_name: "{{ ansible_facts.env.MOLECULE_EPHEMERAL_DIRECTORY.split('/')[-2] }}"
 
-    molecule_security_group_description: Temporary security group used for molecule {{ molecule_scenario }}
+    molecule_ssh_key_pair_name: molecule-{{ caller_name }}-{{ molecule_scenario }}-ssh-key
+    molecule_security_group_name: molecule-{{ caller_name }}-{{ molecule_scenario }}-security-group
+
+    ssh_port: 22
 
     molecule_security_group_rules:
       - proto: tcp
         from_port: "{{ ssh_port }}"
         to_port: "{{ ssh_port }}"
         cidr_ip: 0.0.0.0/0
-
-    ssh_port: 22
 
   tasks:
     - name: Map subnet(s) to VPC(s)
@@ -30,7 +30,7 @@
     - name: Create the molecule security group
       amazon.aws.ec2_security_group:
         name: "{{ molecule_security_group_name }}"
-        description: "{{ molecule_security_group_description }}"
+        description: Temporary {{ molecule_security_group_name }}
         rules: "{{ molecule_security_group_rules }}"
         vpc_id: "{{ item.subnets[0].vpc_id }}"
       loop: "{{ ec2_vpc_subnet_info.results }}"
@@ -59,7 +59,7 @@
 
     - name: Create the molecule EC2 instance(s)
       amazon.aws.ec2_instance:
-        name: molecule-{{ molecule_scenario }}-{{ item.name }}
+        name: molecule-{{ caller_name }}-{{ molecule_scenario }}-{{ item.name }}
         instance_type: "{{ item.instance_type }}"
         image_id: "{{ item.image }}"
         key_name: "{{ molecule_ssh_key_pair_name }}"
@@ -76,7 +76,7 @@
         - name: Populate instance config dict # noqa jinja
           ansible.builtin.set_fact:
             instance_conf_dict:
-              instance: "{{ item.instances[0].tags.Name | replace('molecule-' + molecule_scenario + '-', '') }}"
+              instance: "{{ item.instances[0].tags.Name | replace('molecule-' + caller_name + '-' + molecule_scenario + '-', '') }}"
               address: "{{ item.instances[0].public_ip_address }}"
               user: "{{ item.item.ssh_user }}"
               port: "{{ ssh_port }}"
