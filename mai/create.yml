@@ -2,7 +2,7 @@
 - name: Create
   hosts: localhost
   connection: local
-  gather_facts: false
+  gather_facts: true
   no_log: false
   vars:
     molecule_scenario: mai # Multiple AWS Instances
@@ -10,7 +10,6 @@
     molecule_ssh_key_pair_name: molecule-{{ molecule_scenario }}-ssh-key
     molecule_security_group_name: molecule-{{ molecule_scenario }}-security-group
 
-    molecule_ssh_key_pair_path: ~/.cache/molecule/ssh/{{ molecule_scenario }}
     molecule_security_group_description: Temporary security group used for molecule {{ molecule_scenario }}
 
     molecule_security_group_rules:
@@ -38,7 +37,7 @@
 
     - name: Test for the presence of the local molecule ssh key pair
       ansible.builtin.stat:
-        path: "{{ molecule_ssh_key_pair_path }}/{{ molecule_ssh_key_pair_name }}"
+        path: "{{ ansible_facts.env.MOLECULE_EPHEMERAL_DIRECTORY }}/{{ molecule_ssh_key_pair_name }}"
       register: local_molecule_ssh_key_pair
 
     - name: Create and download the molecule ssh key pair
@@ -54,7 +53,7 @@
           ansible.builtin.copy:
             content: >
               {{ molecule_ssh_key_pair.key.private_key }}
-            dest: "{{ molecule_ssh_key_pair_path }}/{{ molecule_ssh_key_pair_name }}"
+            dest: "{{ ansible_facts.env.MOLECULE_EPHEMERAL_DIRECTORY }}/{{ molecule_ssh_key_pair_name }}"
             mode: "600"
           delegate_to: localhost
 
@@ -81,7 +80,7 @@
               address: "{{ item.instances[0].public_ip_address }}"
               user: "{{ item.item.ssh_user }}"
               port: "{{ ssh_port }}"
-              identity_file: "{{ molecule_ssh_key_pair_path }}/{{ molecule_ssh_key_pair_name }}"
+              identity_file: "{{ ansible_facts.env.MOLECULE_EPHEMERAL_DIRECTORY }}/{{ molecule_ssh_key_pair_name }}"
               instance_ids: "{{ item.instance_ids }}"
           with_items: "{{ server.results }}"
           register: instance_config_dict
