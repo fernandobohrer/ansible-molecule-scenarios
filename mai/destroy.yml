@@ -7,8 +7,10 @@
   vars:
     molecule_scenario: mai # Multiple AWS Instances
 
-    molecule_ssh_key_pair_name: molecule-{{ molecule_scenario }}-ssh-key
-    molecule_security_group_name: molecule-{{ molecule_scenario }}-security-group
+    caller_name: "{{ ansible_facts.env.MOLECULE_EPHEMERAL_DIRECTORY.split('/')[-2] }}"
+
+    molecule_ssh_key_pair_name: molecule-{{ caller_name }}-{{ molecule_scenario }}-ssh-key
+    molecule_security_group_name: molecule-{{ caller_name }}-{{ molecule_scenario }}-security-group
 
   tasks:
     - name: Destroy the molecule EC2 instance(s)
