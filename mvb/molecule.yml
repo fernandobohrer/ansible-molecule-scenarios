@@ -30,12 +30,6 @@ platforms:
     cpus: 2
     memory: 2048
 
-  - name: rockylinux-8
-    box: rockylinux/8
-    box_version: 5.0.0
-    cpus: 2
-    memory: 2048
-
   # - name: ubuntu-2404
   #   box: ubuntu/noble64
   #   cpus: 2
