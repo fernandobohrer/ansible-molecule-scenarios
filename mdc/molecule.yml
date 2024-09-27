@@ -31,8 +31,8 @@ platforms:
     cgroupns_mode: host
     pre_build_image: true
 
-  - name: ubuntu-2404
-    image: fernandobohrer/docker-ansible-ubuntu-2404:latest
+  - name: ubuntu-2204
+    image: fernandobohrer/docker-ansible-ubuntu-2204:latest
     command: /lib/systemd/systemd
     volumes:
       - /sys/fs/cgroup:/sys/fs/cgroup:rw
@@ -40,8 +40,8 @@ platforms:
     cgroupns_mode: host
     pre_build_image: true
 
-  - name: ubuntu-2204
-    image: fernandobohrer/docker-ansible-ubuntu-2204:latest
+  - name: ubuntu-2404
+    image: fernandobohrer/docker-ansible-ubuntu-2404:latest
     command: /lib/systemd/systemd
     volumes:
       - /sys/fs/cgroup:/sys/fs/cgroup:rw
