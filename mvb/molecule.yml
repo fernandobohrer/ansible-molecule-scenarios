@@ -20,11 +20,6 @@ platforms:
     cpus: 2
     memory: 2048
 
-  - name: debian-11
-    box: debian/bullseye64
-    cpus: 2
-    memory: 2048
-
   - name: rockylinux-9
     box: rockylinux/9
     cpus: 2
