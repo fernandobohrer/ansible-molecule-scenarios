@@ -19,12 +19,6 @@ platforms:
     ssh_user: admin
     subnet_id: ${SUBNET_ID}
 
-  - name: rockylinux-9
-    image: ami-021a1f96fec61f4e9 # rockylinux-9 amd64 @ us-east-1
-    instance_type: t3a.small
-    ssh_user: rocky
-    subnet_id: ${SUBNET_ID}
-
   - name: ubuntu-2204
     image: ami-0a0e5d9c7acc336f1 # ubuntu-2204 amd64 @ us-east-1
     instance_type: t3a.small

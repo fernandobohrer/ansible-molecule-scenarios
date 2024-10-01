@@ -20,11 +20,6 @@ platforms:
     cpus: 2
     memory: 2048
 
-  - name: rockylinux-9
-    box: rockylinux/9
-    cpus: 2
-    memory: 2048
-
   - name: ubuntu-2204
     box: alvistack/ubuntu-22.04
     cpus: 2
