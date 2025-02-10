@@ -9,5 +9,7 @@
       ansible.builtin.debug:
         var: ansible_facts
 
-  # roles:
-  #   - ansible.role
+  # tasks:
+  #   - name: Apply role
+  #     ansible.builtin.include_role:
+  #       name: ansible-role
